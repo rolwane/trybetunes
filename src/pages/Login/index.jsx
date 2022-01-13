@@ -37,8 +37,7 @@ class Login extends Component {
   }
 
   render() {
-    const {
-      input, isButtonDisabled, isLoadingVisible, isLogged } = this.state;
+    const { input, isButtonDisabled, isLoadingVisible, isLogged } = this.state;
 
     return (
       <div data-testid="page-login">
