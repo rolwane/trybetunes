@@ -7,8 +7,8 @@ class Profile extends Component {
   render() {
     return (
       <div data-testid="page-profile">
-        Profile
         <Header />
+        Profile
       </div>
     );
   }
