@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { MIN_LENGTH_SEARCH } from '../../lib/constants';
 
 class FormSearch extends Component {
@@ -15,11 +16,20 @@ class FormSearch extends Component {
     });
   }
 
+  handleSubmit = (event) => {
+    event.preventDefault();
+    const { onSubmit } = this.props;
+    const { search } = this.state;
+
+    onSubmit(search);
+    this.setState({ search: '', isButtonDisabled: true });
+  }
+
   render() {
     const { search, isButtonDisabled } = this.state;
 
     return (
-      <form>
+      <form onSubmit={ this.handleSubmit }>
         <input
           type="search"
           data-testid="search-artist-input"
@@ -39,3 +49,7 @@ class FormSearch extends Component {
 }
 
 export default FormSearch;
+
+FormSearch.propTypes = {
+  handleSubmit: PropTypes.func,
+}.isRequired;
