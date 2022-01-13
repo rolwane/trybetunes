@@ -42,20 +42,19 @@ class Search extends Component {
     return (
       <div data-testid="page-search">
         <Header />
+
         {isFormVisible ? <FormSearch onSubmit={ this.getAlbums } /> : <Loading />}
         {message}
 
-        {
-          results.map((album) => (
-            <Link
-              to={ `/album/${album.collectionId}` }
-              data-testid={ `link-to-album-${album.collectionId}` }
-              key={ album.collectionId }
-            >
-              <CardAlbum data={ album } />
-            </Link>
-          ))
-        }
+        {results.map((album) => (
+          <Link
+            to={ `/album/${album.collectionId}` }
+            data-testid={ `link-to-album-${album.collectionId}` }
+            key={ album.collectionId }
+          >
+            <CardAlbum data={ album } />
+          </Link>
+        ))}
 
       </div>
     );
