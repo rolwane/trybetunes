@@ -6,19 +6,22 @@ class CardAlbum extends Component {
     const { data } = this.props;
     const {
       // artistId,
-      // artistName,
+      artistName,
       // collectionId,
       collectionName,
       // collectionPrice,
       artworkUrl100,
+      primaryGenreName,
       // releaseDate,
       // trackCount,
     } = data;
 
     return (
-      <section>
-        {collectionName}
+      <section className="card-album">
         <img src={ artworkUrl100 } alt={ collectionName } />
+        <h2 className="collection-name" data-testid="album-name">{collectionName}</h2>
+        <h3 className="artist-name" data-testid="artist-name">{artistName}</h3>
+        <p className="genre">{primaryGenreName}</p>
       </section>
     );
   }
