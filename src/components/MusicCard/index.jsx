@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
-import { addSong } from '../../services/favoriteSongsAPI';
+import { addSong, removeSong } from '../../services/favoriteSongsAPI';
 import Loading from '../Loading';
 
 class MusicCard extends Component {
@@ -19,16 +19,17 @@ class MusicCard extends Component {
 
   handleChange = ({ target: { checked } }, data) => {
     this.setState({ isFavorite: checked });
+    this.setState({ isLoadingVisible: true });
 
     if (checked) {
-      this.setState({ isLoadingVisible: true });
       addSong(data).then(() => this.setState({ isLoadingVisible: false }));
+    } else {
+      removeSong(data).then(() => this.setState({ isLoadingVisible: false }));
     }
   }
 
   checkIsFavorite = () => {
     const { favorite: isFavorite } = this.props;
-
     this.setState({ isFavorite });
   }
 
