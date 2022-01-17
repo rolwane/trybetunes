@@ -41,7 +41,7 @@ class Search extends Component {
 
     return (
       <div data-testid="page-search">
-        <Header />
+        <Header active="search" />
 
         {isFormVisible ? <FormSearch onSubmit={ this.getAlbums } /> : <Loading />}
         {message}

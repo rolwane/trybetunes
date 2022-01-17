@@ -5,15 +5,10 @@ class CardAlbum extends Component {
   render() {
     const { data } = this.props;
     const {
-      // artistId,
       artistName,
-      // collectionId,
       collectionName,
-      // collectionPrice,
       artworkUrl100,
       primaryGenreName,
-      // releaseDate,
-      // trackCount,
     } = data;
 
     return (

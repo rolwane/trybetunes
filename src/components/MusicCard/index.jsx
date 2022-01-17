@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
+import { addSong } from '../../services/favoriteSongsAPI';
+import Loading from '../Loading';
 
 class MusicCard extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      isFavorite: false,
+      isLoadingVisible: false,
+    };
+  }
+
+  handleChange = ({ target: { checked } }, data) => {
+    this.setState({ isFavorite: checked }, () => this.addSongToFavorites(data));
+  }
+
+  addSongToFavorites = (data) => {
+    const { isFavorite } = this.state;
+
+    if (isFavorite) {
+      this.setState({ isLoadingVisible: true });
+      addSong(data).then(() => this.setState({ isLoadingVisible: false }));
+    }
+  }
+
   render() {
+    const { isFavorite, isLoadingVisible } = this.state;
     const { data } = this.props;
     const {
+      trackId,
       trackName,
       previewUrl,
     } = data;
@@ -16,6 +42,20 @@ class MusicCard extends Component {
           <track kind="captions" />
           O seu navegador não suporta o elemento audio.
         </audio>
+        {
+          isLoadingVisible ? <Loading /> : (
+            <label htmlFor={ trackId }>
+              <input
+                type="checkbox"
+                data-testid={ `checkbox-music-${trackId}` }
+                id={ trackId }
+                checked={ isFavorite }
+                onChange={ (event) => this.handleChange(event, data) }
+              />
+              Favorita
+            </label>
+          )
+        }
       </section>
     );
   }

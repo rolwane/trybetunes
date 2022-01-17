@@ -33,7 +33,12 @@ class Album extends Component {
             if (index === 0) {
               return <CardAlbum key={ music.collectionId } data={ music } />;
             }
-            return <MusicCard key={ music.trackId } data={ music } />;
+            return (
+              <MusicCard
+                key={ music.trackId }
+                data={ music }
+              />
+            );
           })
         }
       </div>

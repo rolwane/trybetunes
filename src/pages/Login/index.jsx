@@ -3,6 +3,9 @@ import { Redirect } from 'react-router-dom';
 import { createUser } from '../../services/userAPI';
 import { MIN_LENGTH } from '../../lib/constants';
 
+import logo from '../../images/logo-w.png';
+import './styles.css';
+
 // imported components
 import Loading from '../../components/Loading';
 
@@ -40,12 +43,15 @@ class Login extends Component {
     const { input, isButtonDisabled, isLoadingVisible, isLogged } = this.state;
 
     return (
-      <div data-testid="page-login">
-        <form onSubmit={ this.handleSubmit }>
+      <section data-testid="page-login" className="section-login">
+        <img src={ logo } alt="trybetunes-logo" />
+
+        <form onSubmit={ this.handleSubmit } className="form-login">
 
           <input
             type="text"
             data-testid="login-name-input"
+            placeholder="Your name"
             value={ input }
             onChange={ this.handleChange }
           />
@@ -55,13 +61,13 @@ class Login extends Component {
             data-testid="login-submit-button"
             disabled={ isButtonDisabled }
           >
-            Entrar
+            {(isLoadingVisible && <Loading />) || 'Entrar'}
           </button>
 
         </form>
-        {isLoadingVisible && <Loading />}
+
         {isLogged && <Redirect to="/search" />}
-      </div>
+      </section>
     );
   }
 }

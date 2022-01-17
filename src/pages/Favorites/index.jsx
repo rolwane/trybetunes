@@ -7,7 +7,7 @@ class Favorites extends Component {
   render() {
     return (
       <div data-testid="page-favorites">
-        <Header />
+        <Header active="favorites" />
         Favorites
       </div>
     );
