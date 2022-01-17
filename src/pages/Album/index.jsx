@@ -45,6 +45,7 @@ class Album extends Component {
                   key={ music.trackId }
                   data={ music }
                   favorite
+                  onRemove={ null }
                 />
               );
             }
@@ -54,6 +55,7 @@ class Album extends Component {
                 key={ music.trackId }
                 data={ music }
                 favorite={ false }
+                onRemove={ null }
               />
             );
           })

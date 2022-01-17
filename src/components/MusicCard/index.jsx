@@ -20,11 +20,16 @@ class MusicCard extends Component {
   handleChange = ({ target: { checked } }, data) => {
     this.setState({ isFavorite: checked });
     this.setState({ isLoadingVisible: true });
+    const { onRemove } = this.props;
 
     if (checked) {
       addSong(data).then(() => this.setState({ isLoadingVisible: false }));
     } else {
-      removeSong(data).then(() => this.setState({ isLoadingVisible: false }));
+      removeSong(data).then(() => {
+        this.setState({ isLoadingVisible: false }, () => {
+          if (onRemove) onRemove(data.trackId);
+        });
+      });
     }
   }
 
