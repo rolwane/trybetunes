@@ -13,17 +13,23 @@ class MusicCard extends Component {
     };
   }
 
-  handleChange = ({ target: { checked } }, data) => {
-    this.setState({ isFavorite: checked }, () => this.addSongToFavorites(data));
+  componentDidMount() {
+    this.checkIsFavorite();
   }
 
-  addSongToFavorites = (data) => {
-    const { isFavorite } = this.state;
+  handleChange = ({ target: { checked } }, data) => {
+    this.setState({ isFavorite: checked });
 
-    if (isFavorite) {
+    if (checked) {
       this.setState({ isLoadingVisible: true });
       addSong(data).then(() => this.setState({ isLoadingVisible: false }));
     }
+  }
+
+  checkIsFavorite = () => {
+    const { favorite: isFavorite } = this.props;
+
+    this.setState({ isFavorite });
   }
 
   render() {

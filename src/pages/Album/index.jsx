@@ -1,29 +1,35 @@
 import React, { Component } from 'react';
 import propTypes from 'prop-types';
 import getMusics from '../../services/musicsAPI';
+import { getFavoriteSongs } from '../../services/favoriteSongsAPI';
 
 // imported components
 import Header from '../../components/Header';
 import CardAlbum from '../../components/CardAlbum';
 import MusicCard from '../../components/MusicCard';
+// import Loading from '../../components/Loading';
 
 class Album extends Component {
   constructor() {
     super();
 
-    this.state = { musics: [] };
+    this.state = { musics: [], favoriteSongs: [] };
   }
 
   componentDidMount() {
     const { match: { params: { id } } } = this.props;
 
-    getMusics(id).then((response) => {
-      this.setState({ musics: response });
+    getFavoriteSongs().then((response) => {
+      this.setState({ favoriteSongs: response });
+
+      getMusics(id).then((musics) => {
+        this.setState({ musics });
+      });
     });
   }
 
   render() {
-    const { musics } = this.state;
+    const { musics, favoriteSongs } = this.state;
 
     return (
       <div data-testid="page-album">
@@ -33,10 +39,21 @@ class Album extends Component {
             if (index === 0) {
               return <CardAlbum key={ music.collectionId } data={ music } />;
             }
+            if (favoriteSongs.some((favMusic) => favMusic.trackId === music.trackId)) {
+              return (
+                <MusicCard
+                  key={ music.trackId }
+                  data={ music }
+                  favorite
+                />
+              );
+            }
+
             return (
               <MusicCard
                 key={ music.trackId }
                 data={ music }
+                favorite={ false }
               />
             );
           })
