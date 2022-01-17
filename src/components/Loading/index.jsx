@@ -3,7 +3,9 @@ import './styles.css';
 
 class Loading extends Component {
   render() {
-    return <p className="loading">Carregando...</p>;
+    // const { color } = this.props;
+
+    return <p className="loading" style={ { color: 'red' } }>Carregando...</p>;
   }
 }
 
